@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using TaskMaster.Api.Configuration;
+using TaskMaster.Api.Middleware;
 using TaskMaster.Application;
 using TaskMaster.Infrastructure;
 
@@ -9,8 +10,18 @@ var mediatRLicense = builder.Configuration["MediatR:LicenseKey"];
 
 var config = builder.Configuration;
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        "AllowNextJsClient",
+        policy =>
+        {
+            var clientUrl = config["ClientUrl"] ?? "http://localhost:3000";
+
+            policy.WithOrigins(clientUrl).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+        }
+    );
+});
 
 builder.Services.AddControllers(options =>
 {
@@ -18,6 +29,7 @@ builder.Services.AddControllers(options =>
         new RouteTokenTransformerConvention(new KebabCaseParameterTransformer())
     );
 });
+
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -28,18 +40,20 @@ builder.Services.AddInfrastructure(config);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-if (!app.Environment.IsDevelopment())
+else
 {
     app.UseHttpsRedirection();
 }
+
+app.UseCors("AllowNextJsClient");
 
 app.MapControllers();
 

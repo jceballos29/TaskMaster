@@ -4,5 +4,5 @@ public abstract class DomainException(string message, string errorCode, int http
     : Exception(message)
 {
     public string ErrorCode { get; } = errorCode;
-    public int HttpStatuCode { get; } = httpStatuCode;
+    public int HttpStatusCode { get; } = httpStatuCode;
 }
