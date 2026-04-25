@@ -55,10 +55,10 @@
   - [x] `Application/DependencyInjection.cs` (MediatR + FluentValidation + Behaviors)
   - [x] `Infrastructure/DependencyInjection.cs` (DbContext + UnitOfWork + SystemInfoService)
 - [~] Global exception middleware ← **DEUDA TÉCNICA**
-  - [ ] `Middleware/ExceptionHandlingMiddleware.cs`
-  - [ ] Mapa: `ValidationException` → 422, `DomainException` → `HttpStatuCode`, `KeyNotFoundException` → 404, fallback → 500
-  - [ ] Registro en `Program.cs`: `app.UseMiddleware<ExceptionHandlingMiddleware>()`
-- [ ] CORS explícito para producción en `Program.cs`
+  - [x] `Middleware/ExceptionHandlingMiddleware.cs`
+  - [x] Mapa: `ValidationException` → 422, `DomainException` → `HttpStatuCode`, `KeyNotFoundException` → 404, fallback → 500
+  - [x] Registro en `Program.cs`: `app.UseMiddleware<ExceptionHandlingMiddleware>()`
+- [x] CORS explícito para producción en `Program.cs`
 
 ---
 

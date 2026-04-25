@@ -7,4 +7,12 @@ public class InvalidCredentialsException : DomainException
 
     public InvalidCredentialsException(string message)
         : base(message, "INVALID_CREDENTIALS", 401) { }
+
+    public static InvalidCredentialsException AccountLocked(TimeSpan timeRemaining)
+    {
+        var minutes = (int)timeRemaining.TotalMinutes;
+        return new InvalidCredentialsException(
+            $"Account locked due to too many failed attempts. Please try again in {minutes} minutes."
+        );
+    }
 }

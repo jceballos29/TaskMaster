@@ -39,7 +39,7 @@
 | 2.4 | TransactionBehavior + ICommand marker interfaces | 3 | ✅ |
 | 2.5 | Result\<T\> pattern (Success/Failure) | 2 | ✅ |
 | 2.6 | DI modular (Application + Infrastructure) | 2 | ✅ |
-| 2.7 | Global exception middleware | 3 | ❌ Deuda técnica |
+| 2.7 | Global exception middleware | 3 | ✅ |
 | | **Módulo 3: Persistencia** | | |
 | 3.1 | EF Core + Npgsql + snake_case naming convention | 3 | ✅ |
 | 3.2 | ApplicationDbContext + ApplyConfigurationsFromAssembly | 2 | ✅ |
@@ -62,8 +62,8 @@
 | # | Tarea | SP | Estado |
 |---|-------|----|--------|
 | | **Deuda técnica M2** | | |
-| D1 | Global exception middleware (ValidationException, DomainException, fallback 500) | 3 | 🔲 |
-| D2 | CORS explícito para producción | 1 | 🔲 |
+| D1 | Global exception middleware (ValidationException, DomainException, fallback 500) | 3 | ✅ |
+| D2 | CORS explícito para producción | 1 | ✅ |
 | | **Módulo 4: Auth — Backend** | | |
 | 4.1 | ApplicationUser (IdentityUser\<Guid\> + DisplayName + RefreshTokens) | 3 | 🔲 |
 | 4.2 | RefreshToken entity + Configuration | 2 | 🔲 |
