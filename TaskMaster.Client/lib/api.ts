@@ -1,3 +1,5 @@
+import { ApiResult } from "@/types"
+
 export function getApiUrl(endpoint: string): string {
   // 1. Aseguramos que el endpoint empiece con '/'
   const path = endpoint.startsWith("/") ? endpoint : `/${endpoint}`
@@ -14,11 +16,6 @@ export function getApiUrl(endpoint: string): string {
   // Si estamos en el cliente, usamos la ruta pública interceptable por el proxy
   return basePath // Resultado: /api/health
 }
-
-// Interfaz para el patrón de resultados
-export type ApiResult<T> = 
-  | { success: true; data: T; error: null }
-  | { success: false; data: null; error: string };
 
 export async function fetchFromApi<T>(endpoint: string, options?: RequestInit): Promise<ApiResult<T>> {
   const url = getApiUrl(endpoint)

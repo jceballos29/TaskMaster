@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var mediatRLicense = builder.Configuration["MediatR:LicenseKey"];
 
-// var config = builder.Configuration;
+var config = builder.Configuration;
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -14,7 +14,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddHealthChecks();
 
 builder.Services.AddApplication(mediatRLicense);
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(config);
 
 var app = builder.Build();
 

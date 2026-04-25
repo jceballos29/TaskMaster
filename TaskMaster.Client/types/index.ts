@@ -1,12 +1,3 @@
-export interface Result<T> {
-    isSuccess: boolean;
-    value: T;
-    errorCode: string;
-    errorMessage: string;
-}
-
-export interface ApiError {
-  error: string;
-  error_description: string;
-  status: number;
-}
+export type ApiResult<T> = 
+  | { success: true; data: T; error: null }
+  | { success: false; data: null; error: string };

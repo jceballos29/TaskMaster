@@ -1,4 +1,7 @@
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using TaskMaster.Application.Common.Behaviors;
 
 namespace TaskMaster.Application;
 
@@ -11,15 +14,25 @@ public static class DependencyInjection
     {
         var assembly = typeof(DependencyInjection).Assembly;
 
-        // Escanea este proyecto y registra automáticamente todos los Handlers
+        // 1. Escanea y registra todos los validadores
+        services.AddValidatorsFromAssembly(assembly);
+
+        // 2. Orquesta MediatR
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(assembly);
+
+            // Asignación de licencia oficial (MediatR v14+)
             if (!string.IsNullOrWhiteSpace(mediatRLicense))
             {
                 cfg.LicenseKey = mediatRLicense;
             }
+
+            // Registro estricto del Pipeline Behavior
+            cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            cfg.AddOpenBehavior(typeof(TransactionBehavior<,>));
         });
+
         return services;
     }
 }

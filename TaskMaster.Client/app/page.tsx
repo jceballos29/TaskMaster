@@ -12,6 +12,12 @@ import { Activity, Server, AlertCircle } from "lucide-react"
 export default async function Home() {
   // Ahora las llamadas no lanzan excepciones, devuelven un objeto seguro
   const healthRes = await checkServerHealth()
+  
+  // Lanzamos el error explícitamente para que Next.js renderice app/error.tsx
+  if (!healthRes.success) {
+    throw new Error(healthRes.error || "Error de conexión con el servidor");
+  }
+
   const infoRes = await getSystemInfo()
 
   const isHealthy = healthRes.success && healthRes.data === "Healthy";
