@@ -4,9 +4,7 @@ using TaskMaster.Application.System.Queries.GetSystemInfo;
 
 namespace TaskMaster.Api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class SystemController(ISender mediator) : ControllerBase
+public class SystemController(ISender mediator) : BaseApiController
 {
     private readonly ISender _mediator = mediator;
 
